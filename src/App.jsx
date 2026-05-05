@@ -42,11 +42,18 @@ export default function App() {
     return entry;
   }, []);
 
+  const handleImport = useCallback(({ workouts: w, customExercises: ce }) => {
+    saveWorkouts(w);
+    saveCustomExercises(ce);
+    setWorkouts(w);
+    setCustomExercises(ce);
+  }, []);
+
   return (
     <>
       {tab === 'log'      && <LogWorkout exercises={allExercises} onAdd={addWorkout} onAddExercise={addCustomExercise} />}
       {tab === 'progress' && <ProgressChart exercises={allExercises} workouts={workouts} />}
-      {tab === 'history'  && <History exercises={allExercises} workouts={workouts} onDelete={deleteWorkout} />}
+      {tab === 'history'  && <History exercises={allExercises} workouts={workouts} onDelete={deleteWorkout} onImport={handleImport} />}
       <TabBar active={tab} onChange={setTab} />
     </>
   );

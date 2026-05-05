@@ -306,6 +306,31 @@ html, body, #root {
 .tab-btn.active { color: var(--blue); }
 .tab-btn svg { width: 26px; height: 26px; }
 
+/* ── Data actions ─────────────────────────────────── */
+.data-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.data-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 12px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+.data-btn:active { opacity: 0.65; }
+.export-btn { background: var(--blue-light); }
+.import-btn { background: rgba(52,199,89,0.12); }
+.data-btn-icon  { font-size: 1.6rem; }
+.data-btn-label { font-size: 0.95rem; font-weight: 700; color: var(--label); }
+.data-btn-sub   { font-size: 0.72rem; color: var(--label3); }
+
 /* ── Chart tooltip ────────────────────────────────── */
 .chart-tooltip {
   background: rgba(30,30,30,0.88);
