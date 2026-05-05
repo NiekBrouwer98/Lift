@@ -7,6 +7,15 @@ export const EXERCISES = [
   { name: 'Pull-up',        emoji: '⬆️' },
 ];
 
+const CUSTOM_EMOJIS = [
+  '🔥','⚡','🎯','🏆','🥊','🤸','🧗','🚴','🏊','🤾',
+  '🥋','🎽','🏇','🤼','🛹','🪃','🧘','🤺','🏄','🎿',
+];
+
+export function pickEmoji(index) {
+  return CUSTOM_EMOJIS[index % CUSTOM_EMOJIS.length];
+}
+
 export function epley1RM(weightKg, reps) {
   return weightKg * (1 + reps / 30);
 }

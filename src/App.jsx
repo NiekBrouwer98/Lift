@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 import { loadWorkouts, saveWorkouts, loadCustomExercises, saveCustomExercises } from './utils/storage.js';
-import { EXERCISES } from './exercises.js';
+import { EXERCISES, pickEmoji } from './exercises.js';
 import LogWorkout from './components/LogWorkout.jsx';
 import ProgressChart from './components/ProgressChart.jsx';
 import History from './components/History.jsx';
@@ -33,7 +33,7 @@ export default function App() {
   }, []);
 
   const addCustomExercise = useCallback((name) => {
-    const entry = { name, emoji: '🏅' };
+    const entry = { name, emoji: pickEmoji(customExercises.length) };
     setCustomExercises(prev => {
       const next = [...prev, entry];
       saveCustomExercises(next);
