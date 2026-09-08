@@ -34,6 +34,17 @@ export function saveCustomExercises(exercises) {
   localStorage.setItem(EXERCISES_KEY, JSON.stringify(exercises));
 }
 
+const PLANS_KEY = 'lift_plans_v1';
+
+export function loadPlans() {
+  try { return JSON.parse(localStorage.getItem(PLANS_KEY) || '[]'); }
+  catch { return []; }
+}
+
+export function savePlans(plans) {
+  localStorage.setItem(PLANS_KEY, JSON.stringify(plans));
+}
+
 /* ── Export ── */
 export function exportData(workouts, customExercises) {
   const payload = JSON.stringify(

@@ -274,6 +274,93 @@ html, body, #root {
 .empty .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 .empty p { font-size: 0.95rem; line-height: 1.5; }
 
+/* ── Nav text buttons (Cancel / Save in headers) ──── */
+.nav-text-btn {
+  border: none; background: none;
+  font-size: 1rem; color: var(--blue);
+  cursor: pointer; padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-text-btn.primary { font-weight: 700; }
+.nav-text-btn:disabled { color: var(--label3); }
+
+/* ── Secondary button ─────────────────────────────── */
+.btn-secondary {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: var(--blue-light);
+  color: var(--blue);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+.btn-secondary:active { opacity: 0.7; }
+
+/* ── Workout plan list item ───────────────────────── */
+.plan-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--separator);
+  cursor: pointer;
+}
+.plan-item:last-child { border-bottom: none; }
+.plan-name { font-weight: 600; font-size: 1rem; }
+.plan-sub  { font-size: 0.82rem; color: var(--label3); margin-top: 3px; }
+.plan-start-btn {
+  border: none;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Active workout ───────────────────────────────── */
+.workout-progress-bar {
+  height: 4px;
+  background: var(--separator);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.workout-progress-fill {
+  height: 100%;
+  background: var(--blue);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.active-ex-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--blue-light);
+  border-radius: 14px;
+  padding: 16px;
+}
+.active-ex-emoji { font-size: 2.4rem; }
+.active-ex-name  { font-size: 1.25rem; font-weight: 700; }
+.active-ex-prev  { font-size: 0.8rem; color: var(--label3); margin-top: 4px; }
+
+/* ── Done banner ──────────────────────────────────── */
+.done-banner {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.done-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+.done-sub   { font-size: 0.9rem; color: var(--label3); }
+
 /* ── Tab bar ──────────────────────────────────────── */
 .tab-bar {
   position: fixed;
