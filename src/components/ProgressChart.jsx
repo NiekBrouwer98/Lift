@@ -19,6 +19,11 @@ function CustomTooltip({ active, payload }) {
 
 export default function ProgressChart({ exercises, workouts }) {
   const [selected, setSelected] = useState(exercises[0].name);
+  const [search,   setSearch]   = useState('');
+
+  const visible = exercises.filter(ex =>
+    ex.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   const data = workouts
     .filter(w => w.exercise === selected)
@@ -38,17 +43,35 @@ export default function ProgressChart({ exercises, workouts }) {
     <div className="page">
       <div className="nav-bar"><h1>Progress</h1></div>
 
-      {/* Exercise pills */}
-      <div className="pills">
-        {exercises.map(ex => (
-          <button
-            key={ex.name}
-            className={`pill ${selected === ex.name ? 'active' : ''}`}
-            onClick={() => setSelected(ex.name)}
-          >
-            {ex.emoji} {ex.name}
-          </button>
-        ))}
+      {/* Search + pills */}
+      <div className="pills-search-wrap">
+        <div className="pills-search-row">
+          <span className="pills-search-icon">🔍</span>
+          <input
+            className="pills-search-input"
+            type="text"
+            placeholder="Search exercises…"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+          {search && (
+            <button className="pills-search-clear" onClick={() => setSearch('')}>✕</button>
+          )}
+        </div>
+        <div className="pills">
+          {visible.map(ex => (
+            <button
+              key={ex.name}
+              className={`pill ${selected === ex.name ? 'active' : ''}`}
+              onClick={() => setSelected(ex.name)}
+            >
+              {ex.emoji} {ex.name}
+            </button>
+          ))}
+          {visible.length === 0 && (
+            <span style={{ color: 'var(--label3)', fontSize: '0.85rem', padding: '4px 8px' }}>No match</span>
+          )}
+        </div>
       </div>
 
       {data.length === 0 ? (

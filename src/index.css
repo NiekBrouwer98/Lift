@@ -306,6 +306,110 @@ html, body, #root {
 .tab-btn.active { color: var(--blue); }
 .tab-btn svg { width: 26px; height: 26px; }
 
+/* ── Exercise search (Log tab) ────────────────────── */
+.ex-search-wrap {
+  position: relative;
+}
+.ex-search-row {
+  background: var(--card);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.ex-search-emoji { font-size: 1.4rem; flex-shrink: 0; }
+.ex-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--label);
+  min-width: 0;
+}
+.ex-search-input::placeholder { color: var(--label); font-weight: 500; }
+.ex-search-chevron { color: var(--label3); font-size: 1.3rem; transform: rotate(90deg); display: inline-block; }
+.ex-search-clear {
+  border: none; background: none; color: var(--label3);
+  font-size: 0.85rem; cursor: pointer; padding: 2px 4px;
+}
+.ex-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 20;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.ex-drop-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border: none;
+  background: none;
+  font-size: 0.97rem;
+  color: var(--label);
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid var(--separator);
+}
+.ex-drop-item:last-child { border-bottom: none; }
+.ex-drop-item:active, .ex-drop-item.active { background: var(--blue-light); }
+.ex-drop-emoji { font-size: 1.2rem; }
+.ex-drop-check { margin-left: auto; color: var(--blue); font-weight: 700; }
+.ex-drop-add {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border: none;
+  background: none;
+  font-size: 0.95rem;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+  border-top: 1px solid var(--separator);
+}
+.ex-drop-add:active { background: var(--blue-light); }
+.ex-drop-empty { padding: 16px; text-align: center; color: var(--label3); font-size: 0.9rem; }
+
+/* ── Exercise search (Progress tab) ──────────────── */
+.pills-search-wrap { padding: 8px 16px 0; }
+.pills-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.pills-search-icon { font-size: 0.95rem; }
+.pills-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.93rem;
+  color: var(--label);
+  min-width: 0;
+}
+.pills-search-clear {
+  border: none; background: none; color: var(--label3);
+  font-size: 0.8rem; cursor: pointer; padding: 2px 4px;
+}
+
 /* ── Data actions ─────────────────────────────────── */
 .data-actions {
   display: grid;
