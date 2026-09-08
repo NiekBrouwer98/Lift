@@ -13,9 +13,18 @@ export function saveWorkouts(workouts) {
   localStorage.setItem(KEY, JSON.stringify(workouts));
 }
 
-export function loadCustomExercises() {
+export function loadCustomExercises(pickEmoji) {
   try {
-    return JSON.parse(localStorage.getItem(EXERCISES_KEY) || '[]');
+    const stored = JSON.parse(localStorage.getItem(EXERCISES_KEY) || '[]');
+    if (!pickEmoji) return stored;
+    // Migrate any exercises still using the old default emoji
+    const migrated = stored.map((ex, i) =>
+      ex.emoji === '🏅' ? { ...ex, emoji: pickEmoji(i) } : ex
+    );
+    if (migrated.some((ex, i) => ex.emoji !== stored[i].emoji)) {
+      localStorage.setItem(EXERCISES_KEY, JSON.stringify(migrated));
+    }
+    return migrated;
   } catch {
     return [];
   }

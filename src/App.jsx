@@ -9,7 +9,7 @@ import TabBar from './components/TabBar.jsx';
 export default function App() {
   const [tab, setTab] = useState('log');
   const [workouts, setWorkouts] = useState(() => loadWorkouts());
-  const [customExercises, setCustomExercises] = useState(() => loadCustomExercises());
+  const [customExercises, setCustomExercises] = useState(() => loadCustomExercises(pickEmoji));
 
   const allExercises = useMemo(
     () => [...EXERCISES, ...customExercises],
