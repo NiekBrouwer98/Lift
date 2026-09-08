@@ -17,7 +17,6 @@ export function pickEmoji(index) {
 }
 
 export function epley1RM(weightKg, reps) {
-  if (reps === 1) return weightKg;
   return weightKg * (1 + reps / 30);
 }
 
