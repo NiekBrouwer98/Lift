@@ -1,5 +1,8 @@
-const REDIS_URL   = process.env.KV_REST_API_URL   || process.env.UPSTASH_REDIS_REST_URL;
-const REDIS_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+// Vercel's storage integration lets you pick a custom prefix, so match on the suffix
+const envBySuffix = (...suffixes) =>
+  Object.entries(process.env).find(([k]) => suffixes.some(s => k.endsWith(s)) && !k.includes('READ_ONLY'))?.[1];
+const REDIS_URL   = envBySuffix('REST_API_URL', 'REDIS_REST_URL');
+const REDIS_TOKEN = envBySuffix('REST_API_TOKEN', 'REDIS_REST_TOKEN');
 const MAX_BYTES   = 2_000_000;
 
 module.exports = async (req, res) => {
