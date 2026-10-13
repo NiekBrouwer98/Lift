@@ -2,7 +2,46 @@ import { useRef, useState } from 'react';
 import { formatDate } from '../exercises.js';
 import { exportData, importData } from '../utils/storage.js';
 
-export default function History({ exercises, workouts, onDelete, onImport }) {
+function SyncCard({ code, status, onSetCode, onSyncNow }) {
+  const [input, setInput] = useState('');
+  const rowText = { flex: 1, minWidth: 0, fontSize: '0.85rem', color: 'var(--label3)' };
+
+  if (!code) {
+    return (
+      <div className="card">
+        <div className="form-row">
+          <input
+            type="text"
+            placeholder="Paste code from other phone"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            style={{ flex: 1, minWidth: 0, border: 'none', outline: 'none', fontSize: '0.95rem', background: 'transparent' }}
+          />
+          <button className="plan-start-btn" disabled={!input.trim()} onClick={() => onSetCode(input.trim())}>Join</button>
+        </div>
+        <button className="ex-drop-add" onClick={() => onSetCode(crypto.randomUUID())}>
+          <span>＋</span><span>Create new sync code</span>
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="card">
+      <div className="form-row">
+        <code style={{ ...rowText, color: 'var(--label)', wordBreak: 'break-all', userSelect: 'all' }}>{code}</code>
+        <button className="plan-start-btn" onClick={() => navigator.clipboard?.writeText(code)}>Copy</button>
+      </div>
+      <div className="form-row">
+        <span style={rowText}>{status || 'Not synced yet'}</span>
+        <button className="nav-text-btn" onClick={onSyncNow}>Sync now</button>
+        <button className="nav-text-btn" style={{ color: 'var(--red)' }} onClick={() => onSetCode('')}>Disconnect</button>
+      </div>
+    </div>
+  );
+}
+
+export default function History({ exercises, workouts, onDelete, onImport, syncCode, syncStatus, onSetSyncCode, onSyncNow }) {
   const emojiMap  = Object.fromEntries(exercises.map(e => [e.name, e.emoji]));
   const sorted    = [...workouts].sort((a, b) => b.date.localeCompare(a.date));
   const fileInput = useRef(null);
@@ -63,6 +102,9 @@ export default function History({ exercises, workouts, onDelete, onImport }) {
 
       {/* ── Data management ── */}
       <div className="section" style={{ paddingTop: sorted.length === 0 ? 0 : 4 }}>
+        <p className="section-label">Sync across devices</p>
+        <SyncCard code={syncCode} status={syncStatus} onSetCode={onSetSyncCode} onSyncNow={onSyncNow} />
+
         <p className="section-label">Data</p>
         <div className="data-actions">
           <button className="data-btn export-btn" onClick={handleExport}>

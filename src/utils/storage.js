@@ -45,6 +45,40 @@ export function savePlans(plans) {
   localStorage.setItem(PLANS_KEY, JSON.stringify(plans));
 }
 
+const DELETED_KEY = 'lift_deleted_v1';
+const SYNC_KEY    = 'lift_sync_code';
+
+export function loadDeleted() {
+  try { return JSON.parse(localStorage.getItem(DELETED_KEY) || '[]'); }
+  catch { return []; }
+}
+
+export function saveDeleted(ids) {
+  localStorage.setItem(DELETED_KEY, JSON.stringify(ids));
+}
+
+export function loadSyncCode() {
+  return localStorage.getItem(SYNC_KEY) || '';
+}
+
+export function saveSyncCode(code) {
+  if (code) localStorage.setItem(SYNC_KEY, code);
+  else localStorage.removeItem(SYNC_KEY);
+}
+
+// Records are immutable once created, so union-by-key never loses data; tombstones carry deletions.
+export function mergeData(a, b) {
+  const deleted = [...new Set([...(a.deleted ?? []), ...(b.deleted ?? [])])];
+  const gone    = new Set(deleted);
+  const union   = (x = [], y = [], key) => [...new Map([...x, ...y].map(r => [r[key], r])).values()];
+  return {
+    workouts:        union(a.workouts, b.workouts, 'id').filter(w => !gone.has(w.id)),
+    plans:           union(a.plans, b.plans, 'id').filter(p => !gone.has(p.id)),
+    customExercises: union(a.customExercises, b.customExercises, 'name'),
+    deleted,
+  };
+}
+
 /* ── Export ── */
 export function exportData(workouts, customExercises) {
   const payload = JSON.stringify(
